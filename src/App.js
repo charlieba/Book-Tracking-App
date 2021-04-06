@@ -18,7 +18,10 @@ class BooksApp extends React.Component {
      * pages, as well as provide a good URL they can bookmark and share.
      */
     showSearchPage: false,
-    searchResult: []
+    searchResult: [],
+    currentlyReading: [],
+    wantToRead: [],
+    read: []
   }
 
 
@@ -36,8 +39,68 @@ cleanSearch = () =>{
   this.setState(()=>({
       searchResult: []
     } ));
-    console.log("entra aqui")
 }
+
+addCurrentlyReading = (book) =>{
+  this.setState((currentState)=> ({
+    currentlyReading: currentState.currentlyReading.concat([book])
+  }));
+}
+
+addWantToRead = (book) => {
+  this.setState((currentState)=>({
+    wantToRead : currentState.wantToRead.concat([book])
+  }));
+}
+
+addRead = (book) => {
+  this.setState((currentState)=>({
+    read: currentState.read.concat([book])
+  }))
+}
+
+removeCurrentlyReading = (bookToRemove)=>{
+  this.setState((currentState)=>({
+    currentlyReading: currentState.currentlyReading.filter((book) => {
+      return book.id !== bookToRemove.id
+    })
+  }));
+}
+removeWantToRead = (bookToRemove)=>{
+  this.setState((currentState)=>({
+    wantToRead: currentState.wantToRead.filter((book) => {
+      return book.id !== bookToRemove.id
+    })
+  }));
+}
+removeRead = (bookToRemove)=>{
+  this.setState((currentState)=>({
+    read: currentState.read.filter((book) => {
+      return book.id !== bookToRemove.id
+    })
+  }));
+}
+getBookCategory = (bookToCheck)=> {
+  const currentlyReading = this.state.currentlyReading.filter((book)=>{
+    return (bookToCheck.id === book.id)
+  });
+  const wantToRead = this.state.wantToRead.filter((book)=>{
+    return (bookToCheck.id === book.id)
+  });
+  const read = this.state.read.filter((book)=>{
+    return (bookToCheck.id === book.id)
+  });
+  if(currentlyReading.length>0){
+    return 'currentlyReading';
+  }else if(wantToRead.length>0){
+    return 'wantToRead';
+  }else if(read.length>0){
+    return 'read';
+  }else {
+    return 'none';
+  }
+}
+
   render() {
     return (
       <div className="app">
@@ -46,7 +109,15 @@ cleanSearch = () =>{
                 history = {history}
                 searchBooks = { this.searchBooks } 
                 searchResult = {this.state.searchResult}
-                cleanSearch = {this.cleanSearch}/>
+                cleanSearch = {this.cleanSearch}
+                addCurrentlyReading = {this.addCurrentlyReading} 
+                addWantToRead = {this.addWantToRead}
+                addRead = {this.addRead} 
+                
+                removeCurrentlyReading = {this.removeCurrentlyReading}
+                removeWantToRead = {this.removeWantToRead}
+                removeRead = {this.removeRead}
+                getBookCategory = {this.getBookCategory}/>
         )}/>
 
         <Route exact path='/' render = {()=> (
@@ -56,9 +127,36 @@ cleanSearch = () =>{
                 </div>
                 <div className="list-books-content">
                   <div>
-                  <CurrentlyReading/>
-                  <WantToRead/>
-                  <Read/>
+                  <CurrentlyReading
+                    CurrentlyReading = {this.state.currentlyReading}
+                    addCurrentlyReading = {this.addCurrentlyReading} 
+                    addWantToRead = {this.addWantToRead}
+                    addRead = {this.addRead} 
+                    
+                    removeCurrentlyReading = {this.removeCurrentlyReading}
+                    removeWantToRead = {this.removeWantToRead}
+                    removeRead = {this.removeRead}
+                    getBookCategory = {this.getBookCategory}/>
+                  <WantToRead
+                    wantToRead = {this.state.wantToRead}
+                    addCurrentlyReading = {this.addCurrentlyReading} 
+                    addWantToRead = {this.addWantToRead}
+                    addRead = {this.addRead} 
+                    
+                    removeCurrentlyReading = {this.removeCurrentlyReading}
+                    removeWantToRead = {this.removeWantToRead}
+                    removeRead = {this.removeRead}
+                    getBookCategory = {this.getBookCategory}/>
+                  <Read
+                    read = {this.state.read}
+                    addCurrentlyReading = {this.addCurrentlyReading} 
+                    addWantToRead = {this.addWantToRead}
+                    addRead = {this.addRead} 
+                    
+                    removeCurrentlyReading = {this.removeCurrentlyReading}
+                    removeWantToRead = {this.removeWantToRead}
+                    removeRead = {this.removeRead}
+                    getBookCategory = {this.getBookCategory}/>
                   </div>
                 </div>
                 <div className="open-search">
