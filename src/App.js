@@ -24,6 +24,23 @@ class BooksApp extends React.Component {
     read: []
   }
 
+componentDidMount() {
+  BooksAPI.getAll()
+    .then((books) => {
+      this.setState(()=>({
+          currentlyReading: books.filter((book)=>{
+            return book.shelf === "currentlyReading"
+          }),
+          wantToRead: books.filter((book)=>{
+            return book.shelf === "wantToRead"
+          }),
+          read: books.filter((book)=>{
+            return book.shelf === "read"
+          })
+        }
+    ));
+    })
+}
 
 searchBooks = (text) => {
     BooksAPI.search(text)
@@ -35,6 +52,12 @@ searchBooks = (text) => {
     })
 }
 
+updateBook = (book, shelf) => {
+  BooksAPI.update(book, shelf).then((res)=>{
+    console.log(res);
+  })
+}
+
 cleanSearch = () =>{
   this.setState(()=>({
       searchResult: []
@@ -42,24 +65,29 @@ cleanSearch = () =>{
 }
 
 addCurrentlyReading = (book) =>{
+  this.updateBook(book,"currentlyReading");
   this.setState((currentState)=> ({
     currentlyReading: currentState.currentlyReading.concat([book])
   }));
+  
 }
 
 addWantToRead = (book) => {
+  this.updateBook(book,"wantToRead");
   this.setState((currentState)=>({
     wantToRead : currentState.wantToRead.concat([book])
   }));
 }
 
 addRead = (book) => {
+  this.updateBook(book,"read");
   this.setState((currentState)=>({
     read: currentState.read.concat([book])
   }))
 }
 
 removeCurrentlyReading = (bookToRemove)=>{
+  this.updateBook(bookToRemove,"none");
   this.setState((currentState)=>({
     currentlyReading: currentState.currentlyReading.filter((book) => {
       return book.id !== bookToRemove.id
@@ -67,6 +95,7 @@ removeCurrentlyReading = (bookToRemove)=>{
   }));
 }
 removeWantToRead = (bookToRemove)=>{
+  this.updateBook(bookToRemove,"none");
   this.setState((currentState)=>({
     wantToRead: currentState.wantToRead.filter((book) => {
       return book.id !== bookToRemove.id
@@ -74,6 +103,7 @@ removeWantToRead = (bookToRemove)=>{
   }));
 }
 removeRead = (bookToRemove)=>{
+  this.updateBook(bookToRemove,"none");
   this.setState((currentState)=>({
     read: currentState.read.filter((book) => {
       return book.id !== bookToRemove.id
