@@ -6,7 +6,9 @@ class Book extends Component {
         return (            
             <div className="book">
                 <div className="book-top">
-                <div className="book-cover" style={{ width: 128, height: 174, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
+                {(book.imageLinks !== undefined && book.imageLinks.thumbnail !== undefined)&&
+                    <div className="book-cover" style={{ width: 128, height: 174, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
+                }
                 <div className="book-shelf-changer">
                     <select onChange={(event) => 
                         {if(event.target.value === "currentlyReading"){
