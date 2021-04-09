@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 class Book extends Component {
     render (){
-        const { book, addCurrentlyReading, addWantToRead, addRead, removeCurrentlyReading, removeWantToRead, removeRead, getBookCategory} = this.props;
+        const { book, addCurrentlyReading, addWantToRead, addRead, removeCurrentlyReading, removeWantToRead, removeRead, getBookCategory, addNone} = this.props;
         return (            
             <div className="book">
                 <div className="book-top">
@@ -25,6 +25,7 @@ class Book extends Component {
                             removeCurrentlyReading(book);
                             removeWantToRead(book);
                             removeRead(book);
+                            addNone(book);
                         }
                     }} defaultValue={getBookCategory(book)}>
                         <option value="move" disabled>Move to...</option>

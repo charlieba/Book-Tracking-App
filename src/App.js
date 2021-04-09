@@ -87,7 +87,6 @@ addRead = (book) => {
 }
 
 removeCurrentlyReading = (bookToRemove)=>{
-  this.updateBook(bookToRemove,"none");
   this.setState((currentState)=>({
     currentlyReading: currentState.currentlyReading.filter((book) => {
       return book.id !== bookToRemove.id
@@ -95,7 +94,6 @@ removeCurrentlyReading = (bookToRemove)=>{
   }));
 }
 removeWantToRead = (bookToRemove)=>{
-  this.updateBook(bookToRemove,"none");
   this.setState((currentState)=>({
     wantToRead: currentState.wantToRead.filter((book) => {
       return book.id !== bookToRemove.id
@@ -103,13 +101,17 @@ removeWantToRead = (bookToRemove)=>{
   }));
 }
 removeRead = (bookToRemove)=>{
-  this.updateBook(bookToRemove,"none");
   this.setState((currentState)=>({
     read: currentState.read.filter((book) => {
       return book.id !== bookToRemove.id
     })
   }));
 }
+
+addNone = (book) => {
+  this.updateBook(book,"none");
+}
+
 getBookCategory = (bookToCheck)=> {
   const currentlyReading = this.state.currentlyReading.filter((book)=>{
     return (bookToCheck.id === book.id)
@@ -147,7 +149,8 @@ getBookCategory = (bookToCheck)=> {
                 removeCurrentlyReading = {this.removeCurrentlyReading}
                 removeWantToRead = {this.removeWantToRead}
                 removeRead = {this.removeRead}
-                getBookCategory = {this.getBookCategory}/>
+                getBookCategory = {this.getBookCategory}
+                addNone = {this.addNone}/>
         )}/>
 
         <Route exact path='/' render = {()=> (
@@ -166,7 +169,8 @@ getBookCategory = (bookToCheck)=> {
                     removeCurrentlyReading = {this.removeCurrentlyReading}
                     removeWantToRead = {this.removeWantToRead}
                     removeRead = {this.removeRead}
-                    getBookCategory = {this.getBookCategory}/>
+                    getBookCategory = {this.getBookCategory}
+                    addNone = {this.addNone}/>
                   <WantToRead
                     wantToRead = {this.state.wantToRead}
                     addCurrentlyReading = {this.addCurrentlyReading} 
@@ -176,7 +180,8 @@ getBookCategory = (bookToCheck)=> {
                     removeCurrentlyReading = {this.removeCurrentlyReading}
                     removeWantToRead = {this.removeWantToRead}
                     removeRead = {this.removeRead}
-                    getBookCategory = {this.getBookCategory}/>
+                    getBookCategory = {this.getBookCategory}
+                    addNone = {this.addNone}/>
                   <Read
                     read = {this.state.read}
                     addCurrentlyReading = {this.addCurrentlyReading} 
@@ -186,7 +191,8 @@ getBookCategory = (bookToCheck)=> {
                     removeCurrentlyReading = {this.removeCurrentlyReading}
                     removeWantToRead = {this.removeWantToRead}
                     removeRead = {this.removeRead}
-                    getBookCategory = {this.getBookCategory}/>
+                    getBookCategory = {this.getBookCategory}
+                    addNone = {this.addNone}/>
                   </div>
                 </div>
                 <div className="open-search">

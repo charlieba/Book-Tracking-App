@@ -18,7 +18,8 @@ function CurrentlyReading(props){
                                                             removeCurrentlyReading = {props.removeCurrentlyReading}
                                                             removeWantToRead = {props.removeWantToRead}
                                                             removeRead = {props.removeRead}
-                                                            getBookCategory = {props.getBookCategory}/></li>
+                                                            getBookCategory = {props.getBookCategory}
+                                                            addNone = {props.addNone}/></li>
                                 );
                             })
                     }

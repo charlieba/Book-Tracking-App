@@ -41,7 +41,8 @@ class Search extends Component {
                                                             removeCurrentlyReading = {this.props.removeCurrentlyReading}
                                                             removeWantToRead = {this.props.removeWantToRead}
                                                             removeRead = {this.props.removeRead}
-                                                            getBookCategory = {this.props.getBookCategory}/></li>
+                                                            getBookCategory = {this.props.getBookCategory}
+                                                            addNone = {this.props.addNone}/></li>
                                 );
                             })
                     }
