@@ -5,7 +5,7 @@ import CurrentlyReading from './CurrentlyReading';
 import WantToRead from './WantToRead';
 import Read from './Read';
 import Search from './Search';
-import { Link, Route } from 'react-router-dom';
+import { Link, Route, Switch} from 'react-router-dom';
 import * as BooksAPI from './BooksAPI'
 
 class BooksApp extends React.Component {
@@ -142,7 +142,8 @@ getBookCategory = (bookToCheck)=> {
   render() {
     return (
       <div className="app">
-        <Route path='/AddABook' render = {({ history })=> (
+        <Switch>
+        <Route exact path='/AddABook' render = {({ history })=> (
               <Search 
                 history = {history}
                 searchBooks = { this.searchBooks } 
@@ -210,6 +211,12 @@ getBookCategory = (bookToCheck)=> {
                 </div>
               </div>
         )}/>
+         <Route status={404} render = {()=> (
+           <div>
+              PAGE NOT FOUND. 
+           </div>
+          )} />
+      </Switch>
       </div>
     )
   }
