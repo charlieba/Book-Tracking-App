@@ -23,6 +23,8 @@ class Search extends Component {
                     onChange={(event) => {
                         if(event.target.value && event.target.value.length > 0){
                             this.props.searchBooks(event.target.value)
+                        }else{
+                            this.props.cleanSearch();
                         }  
                     }}
                 />

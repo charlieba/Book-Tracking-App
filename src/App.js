@@ -43,6 +43,7 @@ componentDidMount() {
 }
 
 searchBooks = (text) => {
+  if(text!==''){
     BooksAPI.search(text)
     .then((result)=>{
         this.setState(()=>({
@@ -50,7 +51,12 @@ searchBooks = (text) => {
             }
         ));
     })
+  }else{
+    this.cleanSearch();
+  }
+
 }
+
 
 updateBook = (book, shelf) => {
   BooksAPI.update(book, shelf).then((res)=>{
